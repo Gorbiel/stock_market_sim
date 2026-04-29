@@ -1,0 +1,13 @@
+target/
+.git/
+.github/
+.idea/
+.vscode/
+
+.env
+*.log
+
+README.md
+CONTRIBUTING.md
+
+.DS_Store
