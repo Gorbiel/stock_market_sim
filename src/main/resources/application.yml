@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: stock_sim
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+server:
+  port: ${SERVER_PORT:8080}
