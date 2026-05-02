@@ -1,6 +1,8 @@
 package gorbiel.stock_sim.bank.service;
 
 import gorbiel.stock_sim.bank.dto.BankStockItemRequest;
+import gorbiel.stock_sim.bank.dto.BankStockItemResponse;
+import gorbiel.stock_sim.bank.dto.BankStocksResponse;
 import gorbiel.stock_sim.bank.dto.UpdateBankStocksRequest;
 import gorbiel.stock_sim.bank.model.BankStockHolding;
 import gorbiel.stock_sim.bank.repository.BankStockHoldingRepository;
@@ -24,6 +26,13 @@ public class BankStockServiceImpl implements BankStockService {
                 request.stocks().stream().map(this::toBankStockHolding).toList();
 
         bankStockHoldingRepository.saveAll(holdings);
+    }
+
+    @Override
+    public BankStocksResponse getBankStocks() {
+        return new BankStocksResponse(bankStockHoldingRepository.findAll().stream()
+                .map(h -> new BankStockItemResponse(h.getStockName(), h.getQuantity()))
+                .toList());
     }
 
     private BankStockHolding toBankStockHolding(BankStockItemRequest request) {
