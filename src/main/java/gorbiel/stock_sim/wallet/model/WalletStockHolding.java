@@ -1,28 +1,28 @@
 package gorbiel.stock_sim.wallet.model;
 
-//import jakarta.persistence.*;
+// import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-//@Entity
+// @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"wallet_id", "stock_name"})})
+// @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"wallet_id", "stock_name"})})
 public class WalletStockHolding {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+    //    @Id
+    //    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //    private Long id;
 
-//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "wallet_id", nullable = false)
+    //    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    //    @JoinColumn(name = "wallet_id", nullable = false)
     private Wallet wallet;
 
-//    @Column(name = "stock_name", nullable = false)
+    //    @Column(name = "stock_name", nullable = false)
     private String stockName;
 
-//    @Column(nullable = false)
+    //    @Column(nullable = false)
     private int quantity;
 
     public WalletStockHolding(Wallet wallet, String stockName, int quantity) {

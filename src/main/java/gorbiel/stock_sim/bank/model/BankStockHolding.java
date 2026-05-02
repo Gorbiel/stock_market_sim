@@ -1,22 +1,22 @@
 package gorbiel.stock_sim.bank.model;
 
-//import jakarta.persistence.Column;
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.Id;
+// import jakarta.persistence.Column;
+// import jakarta.persistence.Entity;
+// import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-//@Entity
+// @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BankStockHolding {
 
-//    @Id
-//    @Column(name = "stock_name", nullable = false)
+    //    @Id
+    //    @Column(name = "stock_name", nullable = false)
     private String stockName;
 
-//    @Column(nullable = false)
+    //    @Column(nullable = false)
     private int quantity;
 
     public BankStockHolding(String stockName, int quantity) {
