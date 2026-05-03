@@ -7,9 +7,9 @@ import jakarta.validation.constraints.NotNull;
 @Schema(description = "Request to perform a wallet stock operation")
 public record WalletStockOperationRequest(
         @Schema(
-                        description = "Operation type",
-                        example = "BUY",
-                        allowableValues = {"BUY", "SELL"},
-                        requiredMode = Schema.RequiredMode.REQUIRED)
-                @NotNull
-                OperationType type) {}
+                description = "Operation type",
+                example = "BUY",
+                allowableValues = {"BUY", "SELL"},
+                requiredMode = Schema.RequiredMode.REQUIRED)
+        @NotNull
+        OperationType type) {}

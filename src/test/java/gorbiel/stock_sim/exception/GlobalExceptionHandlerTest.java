@@ -42,11 +42,9 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void shouldReturnNotFoundForUnknownStock() throws Exception {
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/unknown")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/unknown")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isNotFound())
@@ -61,11 +59,9 @@ class GlobalExceptionHandlerTest {
     void shouldReturnBadRequestWhenBuyingWithNoBankStock() throws Exception {
         bankStockHoldingRepository.save(new BankStockHolding("stock1", 0));
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isBadRequest())
@@ -80,11 +76,9 @@ class GlobalExceptionHandlerTest {
     void shouldReturnBadRequestWhenSellingWithNoWalletStock() throws Exception {
         bankStockHoldingRepository.save(new BankStockHolding("stock1", 1));
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "sell" }
                                 """))
                 .andExpect(status().isBadRequest())
@@ -99,11 +93,9 @@ class GlobalExceptionHandlerTest {
     void shouldReturnBadRequestForInvalidOperationType() throws Exception {
         bankStockHoldingRepository.save(new BankStockHolding("stock1", 1));
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "hold" }
                                 """))
                 .andExpect(status().isBadRequest())
@@ -116,9 +108,7 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void shouldReturnBadRequestForMalformedRequestBody() throws Exception {
-        mockMvc.perform(post("/stocks")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
+        mockMvc.perform(post("/stocks").contentType(MediaType.APPLICATION_JSON).content("""
                                 { "stocks": [
                                 """))
                 .andExpect(status().isBadRequest())
@@ -131,11 +121,7 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void shouldReturnBadRequestForNegativeStockQuantity() throws Exception {
-        mockMvc.perform(
-                        post("/stocks")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/stocks").contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "stocks": [
                                     { "name": "stock1", "quantity": -1 }
