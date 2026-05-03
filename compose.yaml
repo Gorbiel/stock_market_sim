@@ -17,11 +17,10 @@ services:
       timeout: 5s
       retries: 5
 
-  app:
+  app-1:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: stock-sim-app
     restart: unless-stopped
     depends_on:
       postgres:
@@ -32,8 +31,32 @@ services:
       DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-stock_sim}
       DB_USERNAME: ${POSTGRES_USER:-stock_user}
       DB_PASSWORD: ${POSTGRES_PASSWORD:-stock_password}
+
+  app-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      SERVER_PORT: 8080
+      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-stock_sim}
+      DB_USERNAME: ${POSTGRES_USER:-stock_user}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-stock_password}
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      - app-1
+      - app-2
     ports:
-      - "${SERVER_PORT:-8080}:8080"
+      - "${SERVER_PORT:-8080}:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
 
 volumes:
   postgres_data:
