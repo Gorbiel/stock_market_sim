@@ -26,11 +26,10 @@ public class WalletStockOperationServiceImpl implements WalletStockOperationServ
     @Override
     @Transactional
     public void processOperation(String walletId, String stockName, OperationType type) {
-        if (type != OperationType.BUY) {
-            throw new BadRequestException("Unsupported operation type for this endpoint implementation");
+        switch (type) {
+            case BUY -> buyStock(walletId, stockName);
+            case SELL -> sellStock(walletId, stockName);
         }
-
-        buyStock(walletId, stockName);
     }
 
     private void buyStock(String walletId, String stockName) {
@@ -52,5 +51,26 @@ public class WalletStockOperationServiceImpl implements WalletStockOperationServ
 
         walletStockHoldingRepository.save(walletStock);
         auditLogEntryRepository.save(new AuditLogEntry(OperationType.BUY, walletId, stockName));
+    }
+
+    private void sellStock(String walletId, String stockName) {
+        BankStockHolding bankStock = bankStockService.getExistingStock(stockName);
+
+        Wallet wallet =
+                walletRepository.findById(walletId).orElseGet(() -> walletRepository.save(new Wallet(walletId)));
+
+        WalletStockHolding walletStock = walletStockHoldingRepository
+                .findByWalletIdAndStockName(walletId, stockName)
+                .orElseGet(() -> new WalletStockHolding(wallet, stockName, 0));
+
+        if (walletStock.getQuantity() == 0) {
+            throw new BadRequestException("Stock is not available in wallet: " + stockName);
+        }
+
+        walletStock.decrease();
+        bankStock.increase();
+
+        walletStockHoldingRepository.save(walletStock);
+        auditLogEntryRepository.save(new AuditLogEntry(OperationType.SELL, walletId, stockName));
     }
 }
