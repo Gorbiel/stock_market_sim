@@ -2,7 +2,7 @@ package gorbiel.stock_sim.audit.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import gorbiel.stock_sim.exception.InvalidOperationTypeException;
+import gorbiel.stock_sim.exception.model.InvalidOperationTypeException;
 import java.util.Arrays;
 
 public enum OperationType {

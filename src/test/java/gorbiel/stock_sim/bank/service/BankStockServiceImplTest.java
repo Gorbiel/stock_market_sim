@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import gorbiel.stock_sim.bank.model.BankStockHolding;
 import gorbiel.stock_sim.bank.repository.BankStockHoldingRepository;
-import gorbiel.stock_sim.exception.ResourceNotFoundException;
+import gorbiel.stock_sim.exception.model.ResourceNotFoundException;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

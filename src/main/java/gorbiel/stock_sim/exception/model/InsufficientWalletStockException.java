@@ -1,4 +1,4 @@
-package gorbiel.stock_sim.exception;
+package gorbiel.stock_sim.exception.model;
 
 public class InsufficientWalletStockException extends BadRequestException {
 
