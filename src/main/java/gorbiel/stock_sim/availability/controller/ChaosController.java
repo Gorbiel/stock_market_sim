@@ -17,7 +17,8 @@ public class ChaosController {
 
     @Operation(
             summary = "Terminate current application instance",
-            description = "Terminates the application instance that handles the request. Used to simulate failure scenarios.")
+            description =
+                    "Terminates the application instance that handles the request. Used to simulate failure scenarios.")
     @ApiResponse(responseCode = "200", description = "Instance termination triggered")
     @PostMapping("/chaos")
     public void chaos() {

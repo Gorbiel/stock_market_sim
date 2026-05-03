@@ -8,6 +8,6 @@ import java.util.List;
 public record WalletResponse(
         @Schema(description = "Wallet ID", example = "wallet-1") String id,
         @ArraySchema(
-                schema = @Schema(implementation = WalletStockResponse.class),
-                arraySchema = @Schema(description = "Stocks held by the wallet"))
-        List<WalletStockResponse> stocks) {}
+                        schema = @Schema(implementation = WalletStockResponse.class),
+                        arraySchema = @Schema(description = "Stocks held by the wallet"))
+                List<WalletStockResponse> stocks) {}

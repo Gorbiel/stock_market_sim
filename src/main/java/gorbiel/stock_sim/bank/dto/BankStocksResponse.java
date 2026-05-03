@@ -7,6 +7,6 @@ import java.util.List;
 @Schema(description = "Current bank stock state")
 public record BankStocksResponse(
         @ArraySchema(
-                schema = @Schema(implementation = BankStockItemResponse.class),
-                arraySchema = @Schema(description = "Stocks currently available in the bank"))
-        List<BankStockItemResponse> stocks) {}
+                        schema = @Schema(implementation = BankStockItemResponse.class),
+                        arraySchema = @Schema(description = "Stocks currently available in the bank"))
+                List<BankStockItemResponse> stocks) {}

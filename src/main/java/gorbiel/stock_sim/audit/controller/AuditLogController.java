@@ -20,9 +20,7 @@ public class AuditLogController {
 
     private final AuditLogService auditLogService;
 
-    @Operation(
-            summary = "Get audit log",
-            description = "Returns successful wallet operations in order of occurrence.")
+    @Operation(summary = "Get audit log", description = "Returns successful wallet operations in order of occurrence.")
     @ApiResponse(
             responseCode = "200",
             description = "Audit log retrieved successfully",

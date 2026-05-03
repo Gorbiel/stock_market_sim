@@ -27,32 +27,30 @@ public class BankStockController {
             summary = "Set bank stock state",
             description = "Replaces the entire bank stock state with the provided stock list.")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Bank stock state updated successfully"),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Invalid request body or validation error",
-                    content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
+        @ApiResponse(responseCode = "200", description = "Bank stock state updated successfully"),
+        @ApiResponse(
+                responseCode = "400",
+                description = "Invalid request body or validation error",
+                content = @Content(schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @PostMapping(value = "/stocks", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateBankStocks(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    required = true,
-                    content = @Content(schema = @Schema(implementation = UpdateBankStocksRequest.class)))
-            @Valid
-            @RequestBody
-            UpdateBankStocksRequest request) {
+                            required = true,
+                            content = @Content(schema = @Schema(implementation = UpdateBankStocksRequest.class)))
+                    @Valid
+                    @RequestBody
+                    UpdateBankStocksRequest request) {
         bankStockService.updateBankStocks(request);
         return ResponseEntity.ok().build();
     }
 
-    @Operation(
-            summary = "Get bank stock state",
-            description = "Returns all stocks currently available in the bank.")
+    @Operation(summary = "Get bank stock state", description = "Returns all stocks currently available in the bank.")
     @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Bank stock state retrieved successfully",
-                    content = @Content(schema = @Schema(implementation = BankStocksResponse.class)))
+        @ApiResponse(
+                responseCode = "200",
+                description = "Bank stock state retrieved successfully",
+                content = @Content(schema = @Schema(implementation = BankStocksResponse.class)))
     })
     @GetMapping(value = "/stocks", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BankStocksResponse> getBankStocks() {
