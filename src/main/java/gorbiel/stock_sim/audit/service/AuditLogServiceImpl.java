@@ -14,6 +14,7 @@ public class AuditLogServiceImpl implements AuditLogService {
 
     @Override
     public AuditLogResponse getLog() {
+        // Entries are returned in insertion order (via ID)
         return new AuditLogResponse(auditLogEntryRepository.findAllByOrderByIdAsc().stream()
                 .map(entry -> new AuditLogEntryResponse(entry.getType(), entry.getWalletId(), entry.getStockName()))
                 .toList());

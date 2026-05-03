@@ -16,6 +16,7 @@ public class WalletQueryServiceImpl implements WalletQueryService {
 
     @Override
     public WalletResponse getWallet(String walletId) {
+        // Returns empty stock list if wallet has no holdings
         List<WalletStockResponse> stocks = walletStockHoldingRepository.findAllByWalletId(walletId).stream()
                 .map(holding -> new WalletStockResponse(holding.getStockName(), holding.getQuantity()))
                 .toList();
@@ -25,6 +26,7 @@ public class WalletQueryServiceImpl implements WalletQueryService {
 
     @Override
     public int getWalletStockQuantity(String walletId, String stockName) {
+        // Missing stock is treated as zero quantity
         return walletStockHoldingRepository
                 .findByWalletIdAndStockName(walletId, stockName)
                 .map(WalletStockHolding::getQuantity)
