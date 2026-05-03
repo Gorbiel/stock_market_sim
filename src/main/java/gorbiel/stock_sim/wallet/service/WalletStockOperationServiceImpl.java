@@ -5,7 +5,8 @@ import gorbiel.stock_sim.audit.model.OperationType;
 import gorbiel.stock_sim.audit.repository.AuditLogEntryRepository;
 import gorbiel.stock_sim.bank.model.BankStockHolding;
 import gorbiel.stock_sim.bank.service.BankStockService;
-import gorbiel.stock_sim.exception.BadRequestException;
+import gorbiel.stock_sim.exception.InsufficientBankStockException;
+import gorbiel.stock_sim.exception.InsufficientWalletStockException;
 import gorbiel.stock_sim.wallet.model.Wallet;
 import gorbiel.stock_sim.wallet.model.WalletStockHolding;
 import gorbiel.stock_sim.wallet.repository.WalletRepository;
@@ -36,7 +37,7 @@ public class WalletStockOperationServiceImpl implements WalletStockOperationServ
         BankStockHolding bankStock = bankStockService.getExistingStock(stockName);
 
         if (bankStock.getQuantity() == 0) {
-            throw new BadRequestException("Stock is not available in bank: " + stockName);
+            throw new InsufficientBankStockException(stockName);
         }
 
         Wallet wallet =
@@ -64,7 +65,7 @@ public class WalletStockOperationServiceImpl implements WalletStockOperationServ
                 .orElseGet(() -> new WalletStockHolding(wallet, stockName, 0));
 
         if (walletStock.getQuantity() == 0) {
-            throw new BadRequestException("Stock is not available in wallet: " + stockName);
+            throw new InsufficientWalletStockException(walletId, stockName);
         }
 
         walletStock.decrease();
