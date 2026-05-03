@@ -1,0 +1,68 @@
+package gorbiel.stock_sim.wallet.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+/**
+ * Represents quantity of a specific stock held by a wallet.
+ *
+ * <p>Invariant: quantity cannot be negative. Each wallet can have at most one holding
+ * for a given stock.
+ */
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"wallet_id", "stock_name"})})
+public class WalletStockHolding {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "wallet_id", nullable = false)
+    private Wallet wallet;
+
+    @Column(name = "stock_name", nullable = false)
+    private String stockName;
+
+    @Column(nullable = false)
+    private int quantity;
+
+    public WalletStockHolding(Wallet wallet, String stockName, int quantity) {
+        validateQuantity(quantity);
+
+        this.wallet = wallet;
+        this.stockName = stockName;
+        this.quantity = quantity;
+    }
+
+    public void increase() {
+        quantity++;
+    }
+
+    public void decrease() {
+        if (quantity == 0) {
+            throw new IllegalStateException("Wallet stock quantity cannot be negative");
+        }
+
+        quantity--;
+    }
+
+    private void validateQuantity(int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Wallet stock quantity cannot be negative");
+        }
+    }
+}
