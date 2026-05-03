@@ -21,6 +21,7 @@ public class BankStockServiceImpl implements BankStockService {
     @Override
     @Transactional
     public void updateBankStocks(UpdateBankStocksRequest request) {
+        // Replace entire bank state (no partial updates)
         bankStockHoldingRepository.deleteAll();
 
         List<BankStockHolding> holdings =
@@ -38,6 +39,7 @@ public class BankStockServiceImpl implements BankStockService {
 
     @Override
     public BankStockHolding getExistingStock(String stockName) {
+        // Centralized validation point for stock existence
         return bankStockHoldingRepository.findById(stockName).orElseThrow(() -> new StockNotFoundException(stockName));
     }
 

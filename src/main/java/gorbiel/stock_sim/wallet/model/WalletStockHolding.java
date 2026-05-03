@@ -14,6 +14,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents quantity of a specific stock held by a wallet.
+ *
+ * <p>Invariant: quantity cannot be negative. Each wallet can have at most one holding
+ * for a given stock.
+ */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

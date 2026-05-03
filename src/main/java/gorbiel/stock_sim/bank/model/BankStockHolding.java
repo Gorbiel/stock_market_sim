@@ -7,6 +7,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents quantity of a stock available in the bank.
+ *
+ * <p>Invariant: quantity cannot be negative.
+ */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
