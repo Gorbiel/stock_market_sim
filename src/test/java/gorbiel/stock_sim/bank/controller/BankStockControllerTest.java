@@ -34,11 +34,7 @@ class BankStockControllerTest {
 
     @Test
     void shouldReturnBankStocks() throws Exception {
-        mockMvc.perform(
-                        post("/stocks")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/stocks").contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "stocks": [
                                     { "name": "stock1", "quantity": 99 },
@@ -57,11 +53,7 @@ class BankStockControllerTest {
 
     @Test
     void shouldSetBankStockState() throws Exception {
-        mockMvc.perform(
-                        post("/stocks")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/stocks").contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "stocks": [
                                     { "name": "stock1", "quantity": 99 }
@@ -79,11 +71,7 @@ class BankStockControllerTest {
 
     @Test
     void shouldReplacePreviousBankStockState() throws Exception {
-        mockMvc.perform(
-                        post("/stocks")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/stocks").contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "stocks": [
                                     { "name": "stock1", "quantity": 99 }
@@ -92,11 +80,7 @@ class BankStockControllerTest {
                                 """))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(
-                        post("/stocks")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/stocks").contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "stocks": [
                                     { "name": "stock2", "quantity": 1 }
@@ -114,11 +98,7 @@ class BankStockControllerTest {
 
     @Test
     void shouldRejectNegativeQuantity() throws Exception {
-        mockMvc.perform(
-                        post("/stocks")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/stocks").contentType(MediaType.APPLICATION_JSON).content("""
                                 {
                                   "stocks": [
                                     { "name": "stock1", "quantity": -1 }

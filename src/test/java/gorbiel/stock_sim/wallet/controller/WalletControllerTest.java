@@ -51,11 +51,9 @@ class WalletControllerTest {
     void shouldBuyStock() throws Exception {
         bankStockHoldingRepository.save(new BankStockHolding("stock1", 1));
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isOk());
@@ -69,20 +67,16 @@ class WalletControllerTest {
     void shouldSellStock() throws Exception {
         bankStockHoldingRepository.save(new BankStockHolding("stock1", 1));
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "sell" }
                                 """))
                 .andExpect(status().isOk());
@@ -94,11 +88,9 @@ class WalletControllerTest {
 
     @Test
     void shouldReturnNotFoundForUnknownStock() throws Exception {
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/unknown")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/unknown")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isNotFound());
@@ -108,11 +100,9 @@ class WalletControllerTest {
     void shouldReturnBadRequestWhenBankHasNoStock() throws Exception {
         bankStockHoldingRepository.save(new BankStockHolding("stock1", 0));
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isBadRequest());
@@ -122,11 +112,9 @@ class WalletControllerTest {
     void shouldReturnBadRequestWhenWalletHasNoStock() throws Exception {
         bankStockHoldingRepository.save(new BankStockHolding("stock1", 1));
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "sell" }
                                 """))
                 .andExpect(status().isBadRequest());
@@ -136,11 +124,9 @@ class WalletControllerTest {
     void shouldReturnWalletState() throws Exception {
         bankStockHoldingRepository.save(new BankStockHolding("stock1", 2));
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isOk());
@@ -157,11 +143,9 @@ class WalletControllerTest {
     void shouldReturnWalletStockQuantity() throws Exception {
         bankStockHoldingRepository.save(new BankStockHolding("stock1", 1));
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isOk());

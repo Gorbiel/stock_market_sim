@@ -48,8 +48,7 @@ class AuditLogControllerTest {
 
     @Test
     void shouldLogSuccessfulBuyOperation() throws Exception {
-        setBankState(
-                """
+        setBankState("""
                 {
                   "stocks": [
                     { "name": "stock1", "quantity": 1 }
@@ -69,8 +68,7 @@ class AuditLogControllerTest {
 
     @Test
     void shouldLogSuccessfulSellOperation() throws Exception {
-        setBankState(
-                """
+        setBankState("""
                 {
                   "stocks": [
                     { "name": "stock1", "quantity": 1 }
@@ -91,8 +89,7 @@ class AuditLogControllerTest {
 
     @Test
     void shouldNotLogFailedBuyOperation() throws Exception {
-        setBankState(
-                """
+        setBankState("""
                 {
                   "stocks": [
                     { "name": "stock1", "quantity": 0 }
@@ -100,11 +97,9 @@ class AuditLogControllerTest {
                 }
                 """);
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isBadRequest());
@@ -114,8 +109,7 @@ class AuditLogControllerTest {
 
     @Test
     void shouldNotLogFailedSellOperation() throws Exception {
-        setBankState(
-                """
+        setBankState("""
                 {
                   "stocks": [
                     { "name": "stock1", "quantity": 1 }
@@ -123,11 +117,9 @@ class AuditLogControllerTest {
                 }
                 """);
 
-        mockMvc.perform(
-                        post("/wallets/wallet-1/stocks/stock1")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/wallet-1/stocks/stock1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "sell" }
                                 """))
                 .andExpect(status().isBadRequest());
@@ -137,8 +129,7 @@ class AuditLogControllerTest {
 
     @Test
     void shouldNotLogBankStateUpdates() throws Exception {
-        setBankState(
-                """
+        setBankState("""
                 {
                   "stocks": [
                     { "name": "stock1", "quantity": 10 }
@@ -151,8 +142,7 @@ class AuditLogControllerTest {
 
     @Test
     void shouldReturnLogEntriesInOrder() throws Exception {
-        setBankState(
-                """
+        setBankState("""
                 {
                   "stocks": [
                     { "name": "stock1", "quantity": 2 }
@@ -181,22 +171,18 @@ class AuditLogControllerTest {
     }
 
     private void buy(String walletId, String stockName) throws Exception {
-        mockMvc.perform(
-                        post("/wallets/%s/stocks/%s".formatted(walletId, stockName))
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/%s/stocks/%s".formatted(walletId, stockName))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "buy" }
                                 """))
                 .andExpect(status().isOk());
     }
 
     private void sell(String walletId, String stockName) throws Exception {
-        mockMvc.perform(
-                        post("/wallets/%s/stocks/%s".formatted(walletId, stockName))
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(
-                                        """
+        mockMvc.perform(post("/wallets/%s/stocks/%s".formatted(walletId, stockName))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
                                 { "type": "sell" }
                                 """))
                 .andExpect(status().isOk());

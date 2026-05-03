@@ -7,6 +7,6 @@ import java.util.List;
 @Schema(description = "Audit log response")
 public record AuditLogResponse(
         @ArraySchema(
-                        schema = @Schema(implementation = AuditLogEntryResponse.class),
-                        arraySchema = @Schema(description = "Successful wallet operations in order"))
-                List<AuditLogEntryResponse> log) {}
+                schema = @Schema(implementation = AuditLogEntryResponse.class),
+                arraySchema = @Schema(description = "Successful wallet operations in order"))
+        List<AuditLogEntryResponse> log) {}
