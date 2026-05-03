@@ -328,3 +328,4 @@ Temporary Items
 # Manually added
 .env
 .pid
+backups/
