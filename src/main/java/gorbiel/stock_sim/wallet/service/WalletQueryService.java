@@ -5,4 +5,6 @@ import gorbiel.stock_sim.wallet.dto.WalletResponse;
 public interface WalletQueryService {
 
     WalletResponse getWallet(String walletId);
+
+    int getWalletStockQuantity(String walletId, String stockName);
 }

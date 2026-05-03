@@ -2,6 +2,7 @@ package gorbiel.stock_sim.wallet.service;
 
 import gorbiel.stock_sim.wallet.dto.WalletResponse;
 import gorbiel.stock_sim.wallet.dto.WalletStockResponse;
+import gorbiel.stock_sim.wallet.model.WalletStockHolding;
 import gorbiel.stock_sim.wallet.repository.WalletStockHoldingRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,13 @@ public class WalletQueryServiceImpl implements WalletQueryService {
                 .toList();
 
         return new WalletResponse(walletId, stocks);
+    }
+
+    @Override
+    public int getWalletStockQuantity(String walletId, String stockName) {
+        return walletStockHoldingRepository
+                .findByWalletIdAndStockName(walletId, stockName)
+                .map(WalletStockHolding::getQuantity)
+                .orElse(0);
     }
 }

@@ -29,4 +29,10 @@ public class WalletController {
     public ResponseEntity<WalletResponse> getWallet(@PathVariable String walletId) {
         return ResponseEntity.ok(walletQueryService.getWallet(walletId));
     }
+
+    @GetMapping("/wallets/{walletId}/stocks/{stockName}")
+    public ResponseEntity<Integer> getWalletStockQuantity(
+            @PathVariable String walletId, @PathVariable String stockName) {
+        return ResponseEntity.ok(walletQueryService.getWalletStockQuantity(walletId, stockName));
+    }
 }
