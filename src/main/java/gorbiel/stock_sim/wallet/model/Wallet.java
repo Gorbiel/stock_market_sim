@@ -10,6 +10,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents a wallet that can hold stocks.
+ *
+ * <p>Wallets are created lazily when wallet operations target a missing wallet.
+ */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,7 +24,7 @@ public class Wallet {
     private String id;
 
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<WalletStockHolding> holdings = new HashSet<>();
+    private final Set<WalletStockHolding> holdings = new HashSet<>();
 
     public Wallet(String id) {
         this.id = id;

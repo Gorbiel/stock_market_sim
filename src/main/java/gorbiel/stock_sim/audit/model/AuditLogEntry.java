@@ -12,6 +12,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents a successful wallet operation stored for audit purposes.
+ *
+ * <p>Entries are ordered by their generated ID.
+ */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

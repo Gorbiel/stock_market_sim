@@ -5,6 +5,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import gorbiel.stock_sim.exception.model.InvalidOperationTypeException;
 import java.util.Arrays;
 
+/**
+ * Supported wallet stock operation types.
+ *
+ * <p>JSON values are lowercase to match the public API contract.
+ */
 public enum OperationType {
     BUY("buy"),
     SELL("sell");
