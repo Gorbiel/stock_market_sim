@@ -6,7 +6,7 @@ import gorbiel.stock_sim.bank.dto.BankStocksResponse;
 import gorbiel.stock_sim.bank.dto.UpdateBankStocksRequest;
 import gorbiel.stock_sim.bank.model.BankStockHolding;
 import gorbiel.stock_sim.bank.repository.BankStockHoldingRepository;
-import gorbiel.stock_sim.exception.ResourceNotFoundException;
+import gorbiel.stock_sim.exception.StockNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +38,7 @@ public class BankStockServiceImpl implements BankStockService {
 
     @Override
     public BankStockHolding getExistingStock(String stockName) {
-        return bankStockHoldingRepository
-                .findById(stockName)
-                .orElseThrow(() -> new ResourceNotFoundException("Stock not found: " + stockName));
+        return bankStockHoldingRepository.findById(stockName).orElseThrow(() -> new StockNotFoundException(stockName));
     }
 
     private BankStockHolding toBankStockHolding(BankStockItemRequest request) {

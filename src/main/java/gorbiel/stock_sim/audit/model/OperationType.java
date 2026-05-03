@@ -2,6 +2,7 @@ package gorbiel.stock_sim.audit.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import gorbiel.stock_sim.exception.InvalidOperationTypeException;
 import java.util.Arrays;
 
 public enum OperationType {
@@ -19,7 +20,7 @@ public enum OperationType {
         return Arrays.stream(values())
                 .filter(type -> type.value.equalsIgnoreCase(value))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Unsupported operation type: " + value));
+                .orElseThrow(() -> new InvalidOperationTypeException(value));
     }
 
     @JsonValue
