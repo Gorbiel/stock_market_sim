@@ -17,7 +17,25 @@ services:
       timeout: 5s
       retries: 5
 
+  postgres-backup:
+    image: postgres:17-alpine
+    container_name: stock-sim-postgres-backup
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-stock_sim}
+      POSTGRES_USER: ${POSTGRES_USER:-stock_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stock_password}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-stock_password}
+    volumes:
+      - ./backups:/backups
+      - ./scripts/postgres-backup.sh:/postgres-backup.sh:ro
+    entrypoint: [ "/bin/sh", "/postgres-backup.sh" ]
+
   app-1:
+    container_name: stock-sim-app-1
     build:
       context: .
       dockerfile: Dockerfile
@@ -33,6 +51,7 @@ services:
       DB_PASSWORD: ${POSTGRES_PASSWORD:-stock_password}
 
   app-2:
+    container_name: stock-sim-app-2
     build:
       context: .
       dockerfile: Dockerfile
@@ -48,6 +67,7 @@ services:
       DB_PASSWORD: ${POSTGRES_PASSWORD:-stock_password}
 
   nginx:
+    container_name: stock-sim-nginx
     image: nginx:1.27-alpine
     restart: unless-stopped
     depends_on:
