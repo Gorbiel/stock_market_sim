@@ -6,7 +6,7 @@ import gorbiel.stock_sim.bank.dto.BankStocksResponse;
 import gorbiel.stock_sim.bank.dto.UpdateBankStocksRequest;
 import gorbiel.stock_sim.bank.model.BankStockHolding;
 import gorbiel.stock_sim.bank.repository.BankStockHoldingRepository;
-import gorbiel.stock_sim.exception.StockNotFoundException;
+import gorbiel.stock_sim.exception.model.StockNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

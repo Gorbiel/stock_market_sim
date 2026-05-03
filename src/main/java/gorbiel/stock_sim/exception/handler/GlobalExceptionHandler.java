@@ -1,5 +1,7 @@
-package gorbiel.stock_sim.exception;
+package gorbiel.stock_sim.exception.handler;
 
+import gorbiel.stock_sim.exception.model.BadRequestException;
+import gorbiel.stock_sim.exception.model.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
